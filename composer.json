@@ -1,0 +1,23 @@
+{
+    "name": "apeipo/XLUtil",
+    "description": "apeipo's util",
+    "license": "MIT",
+    "keywords": ["cost", "timmer", "log-util", "log-decorator"],
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "apeipo",
+            "email": "apeipo@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+		"monolog/monolog": "~1.11"
+    },
+ 
+    "autoload": {
+        "psr-4": {
+            "XLUtil\\": "src/"
+        }
+    }
+}
