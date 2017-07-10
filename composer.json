@@ -3,7 +3,7 @@
     "description": "apeipo's util",
     "license": "MIT",
     "keywords": ["cost", "timmer", "log-util", "log-decorator"],
-    "version": "1.0.0",
+    "version": "1.0.3",
     "authors": [
         {
             "name": "apeipo",
