@@ -2,8 +2,8 @@
     "name": "apeipo/xl-util",
     "description": "apeipo's util",
     "license": "MIT",
-    "keywords": ["cost", "timmer", "log-util", "log-decorator"],
-    "version": "1.0.3",
+    "keywords": ["cost", "log", "log-decorator", "php"],
+    "version": "1.0.4",
     "authors": [
         {
             "name": "apeipo",
