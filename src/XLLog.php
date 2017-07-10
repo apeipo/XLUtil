@@ -1,13 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: linxianlong
+ * User: apeipo
  * Date: 2017/7/10
  * Time: 下午3:58
  */
 
 namespace XLUtil;
-
 
 /**
  * Class XLLog
@@ -21,6 +20,7 @@ class XLLog
     public static $kvRecords = [];
 
     /**
+     * Monolog\\Logger Instace
      * @var string
      */
     public static $logger = "";
@@ -44,6 +44,7 @@ class XLLog
     }
 
     /**
+     * set logid with key
      * @param string $logid
      */
     public static function setLogid($key, $logid)
@@ -69,6 +70,7 @@ class XLLog
     }
 
     /***
+     * add kv to notcie log
      * @param $k
      * @param $v
      */
@@ -78,7 +80,7 @@ class XLLog
 
 
     /**
-     * 清空并打印
+     * clear and print all kv
      * @param string $msg
      */
     public static function flush($msg = '') {
@@ -100,7 +102,7 @@ class XLLog
             throw new \Exception('Logger Instance Is Not init');
         }
 
-        //在打印的context中添加logid
+        //add logid to context
         if (static::$logid) {
             $args[1][static::$logidKey]  =  static::$logid;
         }
