@@ -14,4 +14,4 @@ XLLog::setLogid("LOG_ID", time());
 XLLog::addNoticeKV("file", __FILE__);
 XLLog::addNoticeKV("method", "test");
 XLLog::warning("This is in test");
-XLLog::flush();
+XLLog::flush("RequestDone");
