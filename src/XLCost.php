@@ -33,6 +33,11 @@ class XLCost
     public static function end($key) {
         if(isset(static::$TIME_CACHE[$key])) {
             static::$TIME_CACHE[$key]["end"] = microtime(true);
+            $cost = static::getCostOf($key);
+            if (isset(static::$COSTS[$key])) {
+                $key = $key . "_" . count(static::$COSTS);
+            }
+            static::$COSTS[$key] = $cost;
         }
     }
 
@@ -44,8 +49,7 @@ class XLCost
         if (isset(static::$COSTS[$key])) {
             return static::$COSTS[$key];
         }
-        if( !isset(static::$TIME_CACHE[$key])
-            || !isset(static::$TIME_CACHE[$key]["begin"])
+        if( !isset(static::$TIME_CACHE[$key]["begin"])
             || !isset(static::$TIME_CACHE[$key]["end"]) ) {
             return -1;
         }
@@ -60,9 +64,8 @@ class XLCost
      * @return string
      */
     public static function str($format = '[%s : %dms]') {
-        $costs  = empty(static::$COSTS) ? static::all() : static::$COSTS;
         $res    = '';
-        foreach ($costs as $key => $cost) {
+        foreach (static::$COSTS as $key => $cost) {
             $res .= sprintf($format, $key, $cost);
         }
         return $res;
@@ -73,7 +76,7 @@ class XLCost
      * @return array
      */
     public static function flush() {
-        $res  = empty(static::$COSTS) ? static::all() : static::$COSTS;
+        $res  = static::$COSTS;
         static::$TIME_CACHE = [];
         static::$COSTS      = [];
         return $res;
@@ -84,14 +87,22 @@ class XLCost
      * @return
      */
     public static function all() {
-        if (!empty(static::$COSTS)) {
-            return static::$COSTS;
-        }
-        $costs = [];
-        foreach (static::$TIME_CACHE as $key => $item) {
-            $costs[$key] = static::getCostOf($key);
-        }
-        return $costs;
+        return static::$COSTS;
     }
+
+
+    /**
+     * destruct
+     */
+    function __destruct() {
+        if (!empty(static::$TIME_CACHE)) {
+            static::$TIME_CACHE = [];
+        }
+
+        if (!empty(static::$COSTS)) {
+            static::$COSTS = [];
+        }
+    }
+
 
 }

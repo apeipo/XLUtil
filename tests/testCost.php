@@ -21,8 +21,23 @@ XLCost::end("costB");
 print_r(XLCost::all());
 print_r(XLCost::all());
 print(XLCost::str() . "\n");
-
 print_r(XLCost::flush());
 
-print(XLCost::str());
+
+//test repeat
+for($i = 0; $i < 5; $i++) {
+	XLCost::begin("costRepeat");
+	usleep(50 * 1000);
+	
+	XLCost::begin("costInRepeat");
+	usleep(80 * 1000);
+	XLCost::end("costInRepeat");
+	XLCost::end("costRepeat");
+}
+print_r(XLCost::flush());
+
+//test error
+XLCost::begin("NNNNNNN");
+XLCost::end('Error');
+XLCost::end('ABc');
 print_r(XLCost::all());
