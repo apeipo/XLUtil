@@ -46,16 +46,12 @@ class XLCost
      * @return int
      */
     public static function getCostOf($key) {
-        if (isset(static::$COSTS[$key])) {
-            return static::$COSTS[$key];
-        }
         if( !isset(static::$TIME_CACHE[$key]["begin"])
             || !isset(static::$TIME_CACHE[$key]["end"]) ) {
             return -1;
         }
         $tArr = static::$TIME_CACHE[$key];
         $cost = intval($tArr["end"] * 1000 - $tArr["begin"] * 1000);
-        static::$COSTS[$key] = $cost;
         return $cost;
     }
 
