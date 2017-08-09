@@ -114,7 +114,6 @@ class XLCost
         return static::$COSTS;
     }
 
-
     /**
      * destruct
      */
@@ -123,6 +122,4 @@ class XLCost
         static::$COSTS      = [];
         static::$CNT = [];
     }
-
-
 }
