@@ -10,8 +10,23 @@ namespace XLUtil;
 
 class XLCost
 {
+    /**
+     * begin和end时间记录
+     * @var array
+     */
     public static $TIME_CACHE = [];
+
+    /**
+     * 耗时记录
+     * @var array
+     */
     public static $COSTS = [];
+
+    /**
+     * time的次数
+     * @var array
+     */
+    public static $CNT = [];
 
     /**
      * @param $key
@@ -34,10 +49,15 @@ class XLCost
         if(isset(static::$TIME_CACHE[$key])) {
             static::$TIME_CACHE[$key]["end"] = microtime(true);
             $cost = static::getCostOf($key);
+            //重复的key处理
             if (isset(static::$COSTS[$key])) {
-                $key = $key . "_" . count(static::$COSTS);
+                static::$COSTS[$key] += $cost;
+                static::$CNT[$key]   += 1;
+                static::$COSTS[$key . '_avg'] = static::$COSTS[$key] / static::$CNT[$key];
+            } else {
+                static::$COSTS[$key] = $cost;
+                static::$CNT[$key]   = 1;
             }
-            static::$COSTS[$key] = $cost;
         }
     }
 
@@ -53,6 +73,13 @@ class XLCost
         $tArr = static::$TIME_CACHE[$key];
         $cost = intval($tArr["end"] * 1000 - $tArr["begin"] * 1000);
         return $cost;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getCNT() {
+        return self::$CNT;
     }
 
     /**
@@ -75,6 +102,7 @@ class XLCost
         $res  = static::$COSTS;
         static::$TIME_CACHE = [];
         static::$COSTS      = [];
+        static::$CNT = [];
         return $res;
     }
 
@@ -91,13 +119,9 @@ class XLCost
      * destruct
      */
     function __destruct() {
-        if (!empty(static::$TIME_CACHE)) {
-            static::$TIME_CACHE = [];
-        }
-
-        if (!empty(static::$COSTS)) {
-            static::$COSTS = [];
-        }
+        static::$TIME_CACHE = [];
+        static::$COSTS      = [];
+        static::$CNT = [];
     }
 
 

@@ -34,6 +34,9 @@ for($i = 0; $i < 5; $i++) {
 	XLCost::end("costInRepeat");
 	XLCost::end("costRepeat");
 }
+print_r("RepeatCnt\n");
+print_r(XLCost::getCNT());
+print_r("Test Repeat\n");
 print_r(XLCost::flush());
 
 //test error

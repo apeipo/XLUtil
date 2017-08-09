@@ -3,7 +3,7 @@
     "description": "apeipo's util",
     "license": "MIT",
     "keywords": ["cost", "log", "log-decorator", "php"],
-    "version": "1.0.6",
+    "version": "1.0.7",
     "authors": [
         {
             "name": "apeipo",
